@@ -1,0 +1,34 @@
+{
+  "name": "warmth",
+  "version": "0.0.0",
+  "description": "Models thermal energy on the surface of a planet.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/g-e-o-f/warmth.git"
+  },
+  "keywords": [
+    "climate",
+    "thermal",
+    "energy",
+    "surface",
+    "sphere",
+    "planet",
+    "orbit"
+  ],
+  "author": "Will Shown <w@willshown.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/g-e-o-f/warmth/issues"
+  },
+  "homepage": "https://github.com/g-e-o-f/warmth",
+  "dependencies": {
+    "orbjs": "^0.1.3"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0"
+  }
+}
