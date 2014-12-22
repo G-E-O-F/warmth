@@ -4,7 +4,7 @@
   "description": "Models thermal energy on the surface of a planet.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha test/index.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "moment": "^2.8.4"
   },
   "devDependencies": {
+    "mocha": "^2.0.1",
     "chai": "^1.10.0"
   }
 }
