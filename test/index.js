@@ -53,7 +53,7 @@ describe('Motion', function(){
             pos1 = motion(constants.planets.saturn, '2014-Mar-15 01:00:00 +0000', 'YYYY-MMM-DD HH:mm:ss ZZ'),
             pos2 = motion(constants.planets.saturn, '2014-Mar-15 11:39:22 +0000', 'YYYY-MMM-DD HH:mm:ss ZZ');
 
-        return (pos1.rotation - pos2.rotation).should.be.closeTo(0, tol);
+        return (pos1.sidereal_time - pos2.sidereal_time).should.be.closeTo(0, tol);
 
     });
 
