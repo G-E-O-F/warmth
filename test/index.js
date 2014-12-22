@@ -27,37 +27,35 @@ var assert = require('assert'),
 chai.should();
 
 var ThermalModel = require('../index.js'),
-    constants = require('../lib/thermal-model/constants');
+    constants = require('../lib/constants'),
+    motion = require('../lib/motion');
 
 describe('Motion', function(){
 
     it('should accurately calculate the position of a planet', function(){
 
-        var tol = 0.015, // AU
-            π = Math.PI,
-            r_d = π / 180,
-            motion = require('../lib/motion'),
-            Saturn = {
-                orbital_period: 10759.22 * 24 * 60 * 60,
-                α: 9.53707032,
-                e: 0.05415060,
-                i: 2.48446 * r_d,
-                Ω: 113.71504 * r_d,
-                ϖ: 92.43194 * r_d,
-                epoch: {
-                    time: constants.J2000,
-                    L: 49.94432 * r_d
-                }
-            },
+        var tol = 0.015 * constants.au, // AU
             ref = {
-                x: -6.884205705777835E+00, // AU
-                y: -7.077756036947432E+00, // AU
-                z:  3.970425522809785E-01  // AU
+                x: -6.884205705777835E+00 * constants.au, // AU
+                y: -7.077756036947432E+00 * constants.au, // AU
+                z:  3.970425522809785E-01 * constants.au  // AU
             };
 
-        var pos = motion(Saturn, '2014-Jan-01 00:00:00 +0000', 'YYYY-MMM-DD HH:mm:ss ZZ');
+        var pos = motion(constants.planets.saturn, '2014-Jan-01 00:00:00 +0000', 'YYYY-MMM-DD HH:mm:ss ZZ');
 
         return pos.x.should.be.closeTo(ref.x, tol) && pos.y.should.be.closeTo(ref.y, tol) && pos.z.should.be.closeTo(ref.z, tol);
+
+    });
+
+    it('should accurately calculate the rotation of a planet', function(){
+
+        var tol = Math.PI / 2880,
+            pos1 = motion(constants.planets.saturn, '2014-Mar-15 01:00:00 +0000', 'YYYY-MMM-DD HH:mm:ss ZZ'),
+            pos2 = motion(constants.planets.saturn, '2014-Mar-15 11:39:22 +0000', 'YYYY-MMM-DD HH:mm:ss ZZ');
+
+        console.log(pos1.rotation, pos2.rotation);
+
+        return (pos1.rotation - pos2.rotation).should.be.closeTo(0, tol);
 
     });
 
