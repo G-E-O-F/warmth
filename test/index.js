@@ -28,7 +28,10 @@ chai.should();
 
 var ThermalModel = require('../index.js'),
     constants = require('../lib/constants'),
-    motion = require('../lib/motion');
+    motion = require('../lib/motion'),
+    horizontal = require('../lib/thermal-model/horizontal');
+
+var π = Math.PI;
 
 describe('Motion', function(){
 
@@ -49,11 +52,24 @@ describe('Motion', function(){
 
     it('should accurately calculate the rotation of a planet', function(){
 
-        var tol = Math.PI / 360 / Math.pow(2, 7),
+        var tol = π / 360 / Math.pow(2, 7),
             pos1 = motion(constants.planets.saturn, '2014-Mar-15 01:00:00 +0000', 'YYYY-MMM-DD HH:mm:ss ZZ'),
             pos2 = motion(constants.planets.saturn, '2014-Mar-15 11:39:22 +0000', 'YYYY-MMM-DD HH:mm:ss ZZ');
 
-        return (pos1.sidereal_time - pos2.sidereal_time).should.be.closeTo(0, tol);
+        return (pos1.θ - pos2.θ).should.be.closeTo(0, tol);
+
+    });
+
+});
+
+describe('Horizontal', function(){
+
+    it('should accurately calculate the position of the sun in the sky', function(){
+
+        var pos = motion(constants.planets.earth, '1999-Dec-22 12:40:30 +0000', 'YYYY-MMM-DD HH:mm:ss ZZ'),
+            sun = horizontal(constants.planets.earth.rotation.north, pos, {λ: 0, φ: -23.69522 * π/180});
+
+        return sun.a.should.be.closeTo(π/2, π/360);
 
     });
 
