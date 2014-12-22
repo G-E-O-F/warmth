@@ -49,11 +49,9 @@ describe('Motion', function(){
 
     it('should accurately calculate the rotation of a planet', function(){
 
-        var tol = Math.PI / 2880,
+        var tol = Math.PI / 360 / Math.pow(2, 7),
             pos1 = motion(constants.planets.saturn, '2014-Mar-15 01:00:00 +0000', 'YYYY-MMM-DD HH:mm:ss ZZ'),
             pos2 = motion(constants.planets.saturn, '2014-Mar-15 11:39:22 +0000', 'YYYY-MMM-DD HH:mm:ss ZZ');
-
-        console.log(pos1.rotation, pos2.rotation);
 
         return (pos1.rotation - pos2.rotation).should.be.closeTo(0, tol);
 
