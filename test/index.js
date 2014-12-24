@@ -98,8 +98,8 @@ describe('Thermal model', function(){
         var totalPlanetEnergy = model.star.output * Math.pow(model.planet.radius, 2) / (4 * Math.pow(model.pos.r, 2)),
             maxFieldEnergy = totalPlanetEnergy * model._fieldArea / (π * Math.pow(model.planet.radius, 2));
 
-        model.get({λ: 0, φ: -23.69522 * π/180}).should.be.closeTo(maxFieldEnergy, maxFieldEnergy * .001) &&
-        model.get({λ: π, φ: 23.69522 * π/180}).should.equal(0);
+        model.get({λ: 0, φ: -23.69522 * π/180}).gross.should.be.closeTo(maxFieldEnergy, maxFieldEnergy * .001) &&
+        model.get({λ: π, φ: 23.69522 * π/180}).gross.should.equal(0);
 
     });
 
