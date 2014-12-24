@@ -33,6 +33,18 @@ var ThermalModel = require('../index.js'),
 
 var π = Math.PI;
 
+describe('Constants', function(){
+
+    it('should have an accurate default value for solar output.', function(){
+
+        var o = (3.8289e26).toPrecision(5);
+
+        return constants.stars.sol.output.toPrecision(5).should.equal(o);
+
+    });
+
+});
+
 describe('Motion', function(){
 
     it('should accurately calculate the position of a planet', function(){
@@ -77,13 +89,17 @@ describe('Horizontal', function(){
 
 describe('Thermal model', function(){
 
-    var model = new ThermalModel();
+    var model = new ThermalModel({ fields: 642 });
 
-    it('should have an accurate default value for solar output.', function(){
+    model.setTime('1999-Dec-22 12:40:30 +0000', 'YYYY-MMM-DD HH:mm:ss ZZ');
 
-        var o = (3.8289e26).toPrecision(5);
+    it('should accurately calculate received energy for a field', function(){
 
-        return model.star.output.toPrecision(5).should.equal(o);
+        var totalPlanetEnergy = model.star.output * Math.pow(model.planet.radius, 2) / (4 * Math.pow(model.pos.r, 2)),
+            maxFieldEnergy = totalPlanetEnergy * model._fieldArea / (π * Math.pow(model.planet.radius, 2));
+
+        model.get({λ: 0, φ: -23.69522 * π/180}).should.be.closeTo(maxFieldEnergy, maxFieldEnergy * .001) &&
+        model.get({λ: π, φ: 23.69522 * π/180}).should.equal(0);
 
     });
 
