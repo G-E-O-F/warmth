@@ -67,9 +67,9 @@
 
   tm.setTime('1999-Dec-22 12:40:30 +0000', 'YYYY-MMM-DD HH:mm:ss ZZ');
 
-  var ce = color('#C6C2B6'),
-      cp = color('#C3272B'),
-      cb = new THREE.Color('#2B3736');
+  var ce = color('#000000'),
+      cp = color('#EBf6f7'),
+      cb = new THREE.Color('#000000');
 
   var colorBlend = function(blend){
     var cr = color();
@@ -117,10 +117,10 @@
     //      });
     //    };
 
-    var radpm = -2 * (2*π);
+    var radpm = (2*π);
 
     var render = function () {
-      sphere.rotation.z = radpm * (Date.now() % 60e3) / 60e3;
+      sphere.rotation.z = radpm * (Date.now() % 6e3) / 6e3;
       renderer.render(scene, camera);
       requestAnimationFrame(function(){
         render.call(this, arguments);
