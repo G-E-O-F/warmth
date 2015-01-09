@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-var ThermalModel = require('./lib/thermal-model');
+var ThermalModel = require('./lib/thermal-model/index');
 
 var main = function () {
   return new ThermalModel();
